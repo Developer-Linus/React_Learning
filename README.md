@@ -51,4 +51,84 @@ function AboutPage(){
 - Then you write CSS rules separately and link it to HTML file.
 - React doesn't provide specific way to add CSS. In case I am using an external framework, the only way to manouvre is to thoroughly read the documentation of the specific framework.
 ## Displaying Data
-- 
+- JSX let's me put markup on Javascript.
+- Use of `curly braces` enables me to 'escape back` to JavaScript and embed variables from my code and display it to the user.
+- For example, the following code will display `user.name`:
+```jsx
+return(
+    <h1>
+    {user.name}
+    <h1/>
+);
+```
+- Also, I can "escape into JavaScript" from JSX attributes. How? I have to use curly braces instead of quotes.
+- In the code example below `className = "avatar"` passes `avatar` as a string to CSS class, but `src = {image.userURL}` reads the JavaScript `image.URL` variable value and then passes the value as the `source` attribute.
+```jsx
+return(
+    <img
+    className = "avatar";
+    src = {image.URL};
+    />
+)
+```
+- I can also put complex expressions inside JSX curly braces (string concatenation): Example code is shown below:
+```jsx
+const user = {
+    name: "Harry Porter";
+    imageUrl: "https://i.imgur.com/yXOvdOSs.jpg";
+    imageSize: 90;
+}
+
+export default function Profile(){
+   
+    return(
+         <>
+         <h1> {user.name}<h1/>
+         <img
+         className = "avatar";
+         src = {user.imageUrl};
+         alt = {'Photo of ' + user.name};
+         style = {
+            {
+                width: user.imageSize;
+                height: user.imageSize;
+            }
+         }
+         />
+         </>
+    );
+    
+}
+
+```
+
+## Conditional Rendering
+- In React, we use the same syntax for writing JavaScript conditions. No special syntax.
+- Example:
+```jsx
+let content;
+if(isLoggedIn){
+    content = <AdminPanel/>;
+} else{
+    content = <LoginForm/>
+}
+return(
+    <>
+    {content}
+    </>
+)
+```
+- For a more compact code, I can use `conditional ? operator` that works inside the JSX code as:
+```jsx
+<>
+{
+    isLoggedIn? (
+        <AdminPanel/>
+    ) : (
+        <LoginForm/>
+    )
+
+}
+</>
+```
+## Rendering Lists
