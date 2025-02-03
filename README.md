@@ -132,3 +132,59 @@ return(
 </>
 ```
 ## Rendering Lists
+- Rely on Javascript features like `for loop` and `array map()` to render lists components.
+- consider an array of products:
+```javascript
+const products = [
+    {title: 'Cabbage', id = 1},
+    {title: 'Garlic', id = 2},
+    {title: 'Apple', id = 3}
+];
+```
+- Inside my component, I have to use `map()` function to transform an array of products into `<li>` items.
+```jsx
+const listItems = products.map(product=>
+    <li key = {product.id}>
+    {product.title}
+    </li>
+)
+return(
+    <ul>{listItems}</ul>
+)
+```
+- Notice how `<li>` has got a `key` that uniquely identifies an item among its siblings. You have to pass in a string of a number for this unique idenfitication.
+- Key usually comes from data, particularly database ID. 
+- Why use keys? It assists React to know what happens to an item if I insert, deleter, or rearrange items.
+## Responding to Events
+- Response events are handled by defining `event handlers` functions inside my components.
+```javascript
+function MyButton(){
+    function handleClick(){
+        alert("You clicked me!");
+    }
+}
+return{
+    <button onClick = {handleClick}>
+    Click Me
+    </button>
+}
+```
+- Notice how `onClick = {handleClick}` doesn't have parantheses. I only need to *pass it down* as React will call the event handler function when the user clicks the function.
+## Updating the Screen
+- Often, I want my components to `remember` information and display it.
+- For instance, I want a button to give the number of times it has been clicked.
+- To do this, I need to add `state` to my component. 
+- first, I need to import `useState` from React.
+```javascript
+import { useState } from 'react';
+```
+- Now, I can declare `state variable` inside my component:
+```javascript
+function MyButton(){
+    const [count, setCount] = useState(0);
+    //
+}
+```
+- From `useState`, I will get two things: the current state (`count`) and the function (`setCount`) that let's me update the count.
+- I can give them any names, but the convention is `[something, setSomething]`.
+- 
