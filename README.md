@@ -187,4 +187,61 @@ function MyButton(){
 ```
 - From `useState`, I will get two things: the current state (`count`) and the function (`setCount`) that let's me update the count.
 - I can give them any names, but the convention is `[something, setSomething]`.
-- 
+- For the first time the button is displayed, the `count` value will be zero because 0 is set to the function `setCount`.
+- If I want to change the state, I call the function `setCount` and pass a new value to it.
+- Clicking this button will increment the counter.
+```javascript
+function MyButton(){
+    const [count, setCount] = useState(0);
+    function handleClick(){
+        setCount(count+1);
+    }
+}
+return (
+    <button onclick = {handleClick}>
+    Click {count} times
+    </button>
+)
+```
+- If I render my component several times, each component will have its own state independent of others.
+```javascript
+import { useState } from 'react';
+
+export default function MyApp() {
+  return (
+    <div>
+      <h1>Counters that update separately</h1>
+      <MyButton />
+      <MyButton />
+    </div>
+  );
+}
+
+function MyButton() {
+  const [count, setCount] = useState(0);
+
+  function handleClick() {
+    setCount(count + 1);
+  }
+
+  return (
+    <button onClick={handleClick}>
+      Clicked {count} times
+    </button>
+  );
+}
+
+```
+- Each button `remembers` its own `count` without affecting the ones for others.
+
+## Using Hooks
+- Any function starting with keyword `use` is calle a hook. 
+- `useState` is a React in-built hook. There are also others.
+- I can build my own hooks by combining the existing ones.
+- They are restrictive than other functions. 
+- I can only call hooks at `the top of components or other hooks`.
+- If I want to use `useState` in a condition or a loop, extract a new component and put it there.
+
+## Sharing Data Between Components
+- As earlier seen, every button had its own state of `count`. What about if we want all similar buttons to update at the same time when one button is clicked (share data and update together)?
+- To make this possible, I need to move state to the nearest component `upwards` containing both buttons. 
